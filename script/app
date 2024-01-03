@@ -1,0 +1,50 @@
+#!/bin/bash -e
+ 
+COMMAND_NAME=$1
+shift
+COMMAND_ARGS=$@
+ 
+menu_item(){
+    name="$1"
+    description="${@:2}"
+    echo -e "\e[33m $name\e[0m - $description"
+}
+ 
+print_help() {
+    echo "Usage: $(basename $0) options [...]"
+    echo
+    menu_item "setup" "setup project"
+    menu_item "start" "start project"
+    menu_item "bash" "bash project"
+    menu_item "console" "start Rails console"
+    
+}
+ 
+case $COMMAND_NAME in
+    setup)
+        docker compose run --no-deps web rails new . --force --database=postgresql --color -q
+        sudo chown -R $USER:$USER .
+        docker compose build
+        git config --global --add safe.directory /myapp
+        ;;
+
+    start)
+        docker compose up && docker compose run web rake db:create
+        ;;
+
+    bash)
+        docker compose run web bash
+        ;;
+
+    console)
+        docker compose run web rails console
+        ;;
+
+    help)
+        print_help
+        ;;
+ 
+    *)
+        echo "Unknown command '$COMMAND_NAME'"
+        ;;
+esac
