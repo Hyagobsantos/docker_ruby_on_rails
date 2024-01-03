@@ -1,14 +1,15 @@
-# Documentação do Repositório
+# Documentação
 
 ## Configuração Inicial
 
 Dê permissão de escrita para o script de aplicação:
 
-   ```bash
-   sudo chmod +x ./script/app
-   ```
+```bash
+sudo chmod +x ./script/app
+```
 
 #### 1. Execute o script de ajuda para visualizar as opções disponíveis:
+
 ```bash
 ./script/app help
 ```
@@ -41,7 +42,6 @@ development:
 test:
   <<: *default
   database: myapp_test
-
 ```
 
 ## Inicialização do Projeto
@@ -70,7 +70,6 @@ http://localhost:3000
 ```
 
 ## Criação de Scaffold Básico
-
 
 #### 1. Crie um scaffold básico para o modelo User:
 
